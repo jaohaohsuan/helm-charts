@@ -1,0 +1,66 @@
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.seedHostNamePrefix }}
+  labels:
+{{ include "labels" . | indent 4 }}   
+spec:
+  serviceName: {{ .Values.service.name }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+{{ include "labels.seed" . | indent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/extras-confMap: {{ include (print $.Template.BasePath "/configMap.yaml") . | sha256sum }}
+      labels:
+{{ include "labels.seed" . | indent 8 }}
+    spec:
+      volumes:
+        - name: extras
+          configMap:
+            name: {{ template "fullname" . }}
+      {{- if .Values.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecret }}
+      {{- end }}
+      containers:
+      - name: seed
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.seedPort }}
+          protocol: TCP
+        - containerPort: {{ .Values.clusterHttpManPort }}
+          protocol: TCP
+        env:
+        - name: AB_OFF
+          value: 'true'
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: JAVA_OPTIONS
+          value: >-
+            -Dconfig.file=/extras/prod.conf
+        volumeMounts:
+          - name: extras
+            mountPath: /extras
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.seedPort }}
+        livenessProbe:
+          exec:
+            command:
+              - sh
+              - /extras/healthz
+          initialDelaySeconds: 7
+          periodSeconds: 5
+        resources:
+{{ toYaml .Values.resources | indent 10 }}

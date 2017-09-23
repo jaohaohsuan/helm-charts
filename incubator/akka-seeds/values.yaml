@@ -1,0 +1,20 @@
+# Default values for akka-seeds.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: !!int 2
+image:
+  repository: docker.grandsys.com/inu/akka-seeds
+  tag: ${BUILD_TAG}
+  pullPolicy: Always
+service:
+  name: akka-seeds
+seedHostNamePrefix: akka-seed
+clusterHttpManPort: 7878
+imagePullSecret: grandsys
+actorsystem: demo1
+seedrole: seed
+seedPort: 2551
+resources:
+  limits:
+    memory: 1Gi
+helmRepo: grandsys

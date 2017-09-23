@@ -1,0 +1,72 @@
+---
+{{- $membersPath := printf "/members/akka.tcp://%s@${POD_NAME}.%s:%v" .Values.actorsystem (include "urisuffix" .) .Values.seedPort }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fullname" . }}
+data:
+  pre-stop.sh: |-
+    /usr/bin/curl -i -X DELETE http://127.0.0.1:{{ .Values.clusterHttpManPort }}{{ $membersPath }}
+    /usr/bin/curl -i -X PUT -F 'operation=Down' http://127.0.0.1:{{ .Values.clusterHttpManPort }}{{ $membersPath }}
+  healthz: |-
+    /usr/bin/curl -i http://${POD_IP}:{{ .Values.clusterHttpManPort }}{{ $membersPath }}
+  prod.conf: |-
+    include "application"
+
+    cluster {
+      name = {{ .Values.actorsystem }}
+      port = {{ .Values.seedPort }}
+      seed-nodes = [
+        {{- $replicas := ( .Values.replicaCount | int ) }}
+        {{- $fmt := printf "%s-%%d.%s" .Values.seedHostNamePrefix (include "urisuffix" .) }}
+        
+        {{- range $e := until $replicas }}
+          "{{ printf $fmt $e }}"
+          {{- if ne $replicas (add1 $e) -}}
+          ,
+          {{- end }}
+        {{- end }}
+      ]
+    }
+
+    akka {
+      loglevel = "INFO"
+      
+      actor {
+        serialize-messages = on
+
+        serializers {
+          proto = "akka.remote.serialization.ProtobufSerializer"
+        }
+
+        serialization-bindings {
+          "com.trueaccord.scalapb.GeneratedMessage" = proto
+        }
+      }
+
+      remote {
+        log-remote-lifecycle-events = off
+        netty.tcp {
+          hostname = ${?POD_NAME}.{{ include "urisuffix" . }}
+        }
+      }
+
+      cluster {
+        seed-nodes = []
+        log-info = on
+        metrics.enabled = off
+
+        role {
+          {{ .Values.seedrole }}.min-nr-of-members = {{ $replicas }}
+        }
+
+        roles = [ {{ .Values.seedrole }} ]
+
+        http {
+          management {
+            hostname = ${?POD_IP}
+            port = {{ .Values.clusterHttpManPort }}
+          }
+        }
+      }
+    }

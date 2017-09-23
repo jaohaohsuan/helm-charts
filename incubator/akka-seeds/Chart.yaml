@@ -1,0 +1,15 @@
+apiVersion: v1
+description: Akka Cluster Node-Seeds for Kubernetes
+name: akka-seeds
+version: 0.1.2
+tillerVersion: ">=2.6.1"
+icon: "https://en.wikipedia.org/wiki/File:Akka_toolkit_logo.svg"
+home: "http://doc.akka.io/docs/akka/current/scala/cluster-usage.html"
+keywords:
+- akka
+- cluster
+- seed
+maintainers:
+- name: jaohaohsuan
+  email: jaohaohsuan@gmail.com
+engine: gotpl

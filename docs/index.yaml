@@ -1,8 +1,28 @@
 apiVersion: v1
 entries:
+  akka-seeds:
+  - apiVersion: v1
+    created: 2017-09-24T00:05:59.162164627+08:00
+    description: Akka Cluster Node-Seeds for Kubernetes
+    digest: d428279b3a4541f26193ca959f95e12a93be7435b7f55577db68f469c426dc11
+    engine: gotpl
+    home: http://doc.akka.io/docs/akka/current/scala/cluster-usage.html
+    icon: https://en.wikipedia.org/wiki/File:Akka_toolkit_logo.svg
+    keywords:
+    - akka
+    - cluster
+    - seed
+    maintainers:
+    - email: jaohaohsuan@gmail.com
+      name: jaohaohsuan
+    name: akka-seeds
+    tillerVersion: '>=2.6.1'
+    urls:
+    - https://jaohaohsuan.github.io/helm-charts/akka-seeds-0.1.2.tgz
+    version: 0.1.2
   cephfs-provisioner:
   - apiVersion: v1
-    created: 2017-09-23T12:31:55.816269894+08:00
+    created: 2017-09-24T00:05:59.165040812+08:00
     description: cephfs provisioner for Kubernetes. Ceph is a distributed object store
       and file system designed to provide excellent performance, reliability and scalability.
     digest: 41f8d71648fa05f0be5040252a45530cc90ea3bd91bfea975b17ad42239225a2
@@ -20,7 +40,7 @@ entries:
     - https://jaohaohsuan.github.io/helm-charts/cephfs-provisioner-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
-    created: 2017-09-23T12:31:55.815940814+08:00
+    created: 2017-09-24T00:05:59.164340596+08:00
     description: cephfs provisioner for Kubernetes. Ceph is a distributed object store
       and file system designed to provide excellent performance, reliability and scalability.
     digest: 76f24d81578d5dd2fdf4f0af22c794a1866800d3622e21fb10cfd285ef846fed
@@ -38,7 +58,7 @@ entries:
     - https://jaohaohsuan.github.io/helm-charts/cephfs-provisioner-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2017-09-23T12:31:55.815404512+08:00
+    created: 2017-09-24T00:05:59.163563826+08:00
     description: cephfs provisioner for Kubernetes
     digest: 48db5c3b513af3ef8e06d165a3c2ec1abbe466f417972e1470be4de337a51a74
     icon: https://pbs.twimg.com/profile_images/2186796358/cephglyph_copy.png
@@ -46,4 +66,4 @@ entries:
     urls:
     - https://jaohaohsuan.github.io/helm-charts/cephfs-provisioner-0.1.0.tgz
     version: 0.1.0
-generated: 2017-09-23T12:31:55.814661412+08:00
+generated: 2017-09-24T00:05:59.1610027+08:00
