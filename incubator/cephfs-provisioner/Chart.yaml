@@ -8,6 +8,6 @@ keywords:
 - ceph
 - cephfs
 maintainers:
-- name: Henry
+- name: jaohaohsuan
   email: jaohaohsuan@gmail.com
 engine: gotpl

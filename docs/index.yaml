@@ -2,10 +2,10 @@ apiVersion: v1
 entries:
   cephfs-provisioner:
   - apiVersion: v1
-    created: 2017-09-23T11:56:11.46430977+08:00
+    created: 2017-09-23T12:28:46.426813171+08:00
     description: cephfs provisioner for Kubernetes. Ceph is a distributed object store
       and file system designed to provide excellent performance, reliability and scalability.
-    digest: 697b31b6c4ac90d1bce59defc8405ab0a6758e82b752507427abb6c9c8f02188
+    digest: 76f24d81578d5dd2fdf4f0af22c794a1866800d3622e21fb10cfd285ef846fed
     engine: gotpl
     home: http://docs.ceph.com/docs/master/cephfs/
     icon: https://pbs.twimg.com/profile_images/2186796358/cephglyph_copy.png
@@ -14,13 +14,13 @@ entries:
     - cephfs
     maintainers:
     - email: jaohaohsuan@gmail.com
-      name: Henry
+      name: jaohaohsuan
     name: cephfs-provisioner
     urls:
     - https://jaohaohsuan.github.io/helm-charts/cephfs-provisioner-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2017-09-23T11:56:11.463938676+08:00
+    created: 2017-09-23T12:28:46.426466179+08:00
     description: cephfs provisioner for Kubernetes
     digest: 48db5c3b513af3ef8e06d165a3c2ec1abbe466f417972e1470be4de337a51a74
     icon: https://pbs.twimg.com/profile_images/2186796358/cephglyph_copy.png
@@ -28,4 +28,4 @@ entries:
     urls:
     - https://jaohaohsuan.github.io/helm-charts/cephfs-provisioner-0.1.0.tgz
     version: 0.1.0
-generated: 2017-09-23T11:56:11.463164352+08:00
+generated: 2017-09-23T12:28:46.425596101+08:00
